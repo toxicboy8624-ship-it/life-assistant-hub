@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Life Assistant Hub</title>
+
+<style>
+body{
+font-family: Arial;
+margin:0;
+background:#f0f2f5;
+}
+
+header{
+background:#1e88e5;
+color:white;
+padding:15px;
+text-align:center;
+font-size:24px;
+}
+
+.container{
+display:flex;
+height:90vh;
+}
+
+.sidebar{
+width:250px;
+background:white;
+padding:15px;
+box-shadow:2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar button{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+background:#1e88e5;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+.chat-area{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+.chat-box{
+flex:1;
+padding:20px;
+overflow-y:auto;
+}
+
+.message{
+margin:10px 0;
+padding:10px;
+border-radius:8px;
+max-width:70%;
+}
+
+.user{
+background:#1e88e5;
+color:white;
+margin-left:auto;
+}
+
+.bot{
+background:#ddd;
+}
+
+.input-area{
+display:flex;
+padding:10px;
+background:white;
+}
+
+input{
+flex:1;
+padding:12px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.send-btn{
+padding:12px 20px;
+margin-left:10px;
+border:none;
+background:#1e88e5;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Life Assistant Hub</header>
+
+<div class="container">
+
+<div class="sidebar">
+<h3>Select Assistant</h3>
+
+<button onclick="setAI('Best Friend')">Best Friend AI</button>
+<button onclick="setAI('Doctor')">Doctor AI</button>
+<button onclick="setAI('Teacher')">Teacher AI</button>
+<button onclick="setAI('Fitness Coach')">Fitness Coach AI</button>
+<button onclick="setAI('Career Advisor')">Career Advisor AI</button>
+<button onclick="setAI('Life Coach')">Life Coach AI</button>
+
+</div>
+
+<div class="chat-area">
+
+<div id="chatBox" class="chat-box"></div>
+
+<div class="input-area">
+<input id="userInput" placeholder="Type message...">
+<button class="send-btn" onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+</div>
+
+<script>
+
+let currentAI = "Best Friend";
+
+function setAI(ai){
+currentAI = ai;
+document.getElementById("chatBox").innerHTML="";
+addBotMessage("You are chatting with " + ai + " AI");
+}
+
+function addUserMessage(text){
+let msg=document.createElement("div");
+msg.className="message user";
+msg.innerText=text;
+chatBox.appendChild(msg);
+}
+
+function addBotMessage(text){
+let msg=document.createElement("div");
+msg.className="message bot";
+msg.innerText=text;
+chatBox.appendChild(msg);
+}
+
+function sendMessage(){
+let input=document.getElementById("userInput");
+let text=input.value;
+if(!text) return;
+
+addUserMessage(text);
+input.value="";
+
+setTimeout(()=>{
+let reply = generateReply(text);
+addBotMessage(reply);
+},500);
+}
+
+function generateReply(text){
+
+switch(currentAI){
+
+case "Best Friend":
+return "I'm here for you ❤️ Tell me more.";
+
+case "Doctor":
+return "This is general advice only. Please consult a real doctor if serious.";
+
+case "Teacher":
+return "Let me explain: " + text;
+
+case "Fitness Coach":
+return "Stay consistent. Exercise and healthy diet help.";
+
+case "Career Advisor":
+return "Focus on skills and long-term goals.";
+
+case "Life Coach":
+return "Stay disciplined and improve daily.";
+
+default:
+return "How can I help?";
+}
+
+}
+
+</script>
+
+</body>
+</html>
